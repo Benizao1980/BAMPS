@@ -15,7 +15,7 @@ def find_models(
     classifier: str | None = None,
 ) -> List[Tuple[str, Path]]:
     """
-    Find model files using the BAMPS-ML naming scheme:
+    Find model files using the BAMPS naming scheme:
 
       <antibiotic>__<feature_set>__<task>__<classifier>.pkl
 

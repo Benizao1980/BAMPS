@@ -2,7 +2,7 @@
 """
 tune_model.py
 
-Hyperparameter tuning for BAMPS-ML.
+Hyperparameter tuning for BAMPS.
 
 Supports:
 - regression: predict MIC (optionally on log2 scale)
@@ -108,7 +108,7 @@ def clean_antibiotic(x: str) -> str:
 
 
 def harmonise_ids(s: pd.Series) -> pd.Series:
-    """Harmonise common sample-ID quirks across BAMPS-ML inputs.
+    """Harmonise common sample-ID quirks across BAMPS inputs.
 
     - strips whitespace
     - converts trailing '.<digits>' to '_<digits>' (e.g. 'ABC.4' -> 'ABC_4')
@@ -442,7 +442,7 @@ def tune_one(
 # -----------------------------
 
 def build_argparser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Tune BAMPS-ML models with RandomizedSearchCV.")
+    p = argparse.ArgumentParser(description="Tune BAMPS models with RandomizedSearchCV.")
 
     p.add_argument("--feature-table", required=True, help="Feature matrix (rows=samples, cols=features).")
     p.add_argument("--mic-file", required=True, help="Phenotype/MIC table.")

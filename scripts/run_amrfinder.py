@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BAMPS-ML :: Path C — AMRFinderPlus feature builder
+BAMPS :: Path C — AMRFinderPlus feature builder
 -------------------------------------------------
 Runs AMRFinderPlus on a directory of genome FASTA files, collates the
 results into a binary (presence/absence) feature matrix suitable for
@@ -129,7 +129,7 @@ def build_matrix(tsv_files: List[Path]) -> pd.DataFrame:
 ###############################################################################
 
 def main():
-    parser = argparse.ArgumentParser(description="BAMPS-ML: AMRFinderPlus feature builder")
+    parser = argparse.ArgumentParser(description="BAMPS: AMRFinderPlus feature builder")
     parser.add_argument("--genome-dir", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--threads", type=int, default=4)

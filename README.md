@@ -8,7 +8,7 @@ The package supports quantitative MIC regression and categorical resistance pred
 
 ## Scope
 
-BAMPS contains the reusable modelling framework only. Species- and manuscript-specific data processing, GWAS interpretation and figure-generation scripts belong in companion analysis repositories. The worked *Acinetobacter baumannii* analysis is maintained separately in `Acinetobacter-resistance-architectures`.
+BAMPS contains the reusable modelling framework only. Species- and manuscript-specific data processing, GWAS interpretation and figure-generation scripts belong in companion analysis repositories. The worked *Acinetobacter baumannii* analysis is maintained separately in [Acinetobacter-resistance-architectures](https://github.com/Benizao1980/Acinetobacter-resistance-architectures).
 
 ## Core workflow
 
@@ -18,7 +18,7 @@ BAMPS contains the reusable modelling framework only. Species- and manuscript-sp
 4. Apply saved models with `predict.py` or `predict_all.py`.
 5. Evaluate quantitative MIC predictions with `evaluate_mic_predictions.py`.
 
-See `docs/quickstart.md` and `docs/input_formats.md`.
+See `docs/quickstart.md`, `docs/input_formats.md` and `docs/supported_interface.md`.
 
 ## Installation
 

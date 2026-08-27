@@ -439,7 +439,7 @@ def summarise_bootstrap(df: pd.DataFrame, antibiotic: str, task: str) -> pd.Data
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Train BAMPS-ML models from AMR/GWAS/hybrid feature tables.")
+    parser = argparse.ArgumentParser(description="Train BAMPS models from AMR/GWAS/hybrid feature tables.")
     parser.add_argument("--feature-table", required=True, type=Path, nargs="+", help="One or more feature tables.")
     parser.add_argument("--feature-prefix", nargs="*", default=None, help="Optional prefixes in same order as feature tables.")
     parser.add_argument("--id-col", default=None, help="Optional ID column for feature tables.")

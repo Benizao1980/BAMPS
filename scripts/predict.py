@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BAMPS-ML :: Predictor
+BAMPS :: Predictor
 -----------------------------------
 Apply a trained model (per antibiotic) to one or more feature matrices.
 

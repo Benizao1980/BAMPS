@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """plot_predicted_mic_panel.py
 
-Robust MIC panel plotting for BAMPS-ML.
+Robust MIC panel plotting for BAMPS.
 
 Key robustness features (to stop the exact errors you've hit):
 - Reads CSV/TSV regardless of extension (delimiter sniffing)
@@ -362,7 +362,7 @@ def _make_lineage_panel(merged: pd.DataFrame, out_prefix: Path, lineage_col: str
 # -------------------------
 
 def build_argparser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Plot BAMPS-ML MIC panels.")
+    p = argparse.ArgumentParser(description="Plot BAMPS MIC panels.")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     p1 = sub.add_parser("panel", help="Predicted vs truth MIC panel")

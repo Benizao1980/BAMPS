@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """evaluate_mic_predictions.py
 
-Evaluation suite for BAMPS-ML MIC predictions.
+Evaluation suite for BAMPS MIC predictions.
 
 Inputs:
 - One prediction TSV per antibiotic (as produced by predict_all.py), e.g. preds/preds_amikacin_mic.tsv
@@ -209,7 +209,7 @@ def _plot_residuals(df: pd.DataFrame, out_prefix: Path, title: str) -> None:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Evaluate BAMPS-ML MIC predictions.")
+    ap = argparse.ArgumentParser(description="Evaluate BAMPS MIC predictions.")
     ap.add_argument("--pred", nargs="+", required=True, help="Prediction TSVs (one per antibiotic)")
     ap.add_argument("--truth", required=True, help="Truth MIC table (CSV/TSV; wide or long)")
     ap.add_argument("--outdir", required=True, help="Output directory")

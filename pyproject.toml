@@ -26,7 +26,8 @@ all = ["xgboost>=2.0", "lightgbm>=4.0"]
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [project.urls]
-Repository = "https://github.com/Benizao1980/BAMPS-ML"
+Repository = "https://github.com/Benizao1980/BAMPS"
+Issues = "https://github.com/Benizao1980/BAMPS/issues"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
