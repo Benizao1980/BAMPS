@@ -1,124 +1,64 @@
-<p align="center">
-  <img src="bampsml_logo_variantB_ladder.svg" width="360" alt="BAMPS-ML logo">
-</p>
+# BAMPS
 
-# BAMPS-ML
+**Bacterial AMR Modelling and Prediction Suite**
 
-*Interpretable prediction of antimicrobial resistance phenotypes from bacterial genomes.*
+BAMPS is a small, reproducible toolkit for building, validating and applying antimicrobial-resistance phenotype prediction models from bacterial genome-derived feature matrices.
 
-BAMPS-ML is a framework for predicting antimicrobial resistance phenotypes (MICs or S/I/R)
-from whole-genome sequence data, with an explicit focus on **biological interpretation**.
+The package supports quantitative MIC regression and categorical resistance prediction. It is deliberately feature-agnostic: models can use curated AMR determinants, GWAS-derived features, pangenome features, or combinations of these.
 
-The starting assumption is that resistance phenotypes rarely arise from single genes in
-isolation. In practice, they reflect interactions between **known resistance determinants,
-genetic background, and population structure**. Models that ignore this context may perform
-well under cross-validation while remaining difficult to interpret or generalise.
+## Scope
 
-BAMPS-ML is designed to keep those constraints visible.
+BAMPS contains the reusable modelling framework only. Species- and manuscript-specific data processing, GWAS interpretation and figure-generation scripts belong in companion analysis repositories. The worked *Acinetobacter baumannii* analysis is maintained separately in `Acinetobacter-resistance-architectures`.
 
----
+## Core workflow
 
-## What BAMPS-ML actually does
+1. Build an AMR determinant matrix from assemblies with `run_amrfinder.py` (optional).
+2. Train per-antibiotic regression or classification models with `train_model.py`.
+3. Tune supported models with `tune_model.py`.
+4. Apply saved models with `predict.py` or `predict_all.py`.
+5. Evaluate quantitative MIC predictions with `evaluate_mic_predictions.py`.
 
-At a practical level, BAMPS-ML builds and evaluates resistance prediction models using one
-or more complementary genomic “views”.
+See `docs/quickstart.md` and `docs/input_formats.md`.
 
-Feature matrices can be derived from:
+## Installation
 
-- **AMR determinants** (via AMRFinderPlus)
-- Gene content and functional annotation (Bakta / pangenome) *(optional; in progress)*
-- Genome-wide sequence variation (unitigs / GWAS matrices) *(optional; in progress)*
-
-These feature sets can be used independently or combined, depending on the question being
-asked.
-
-For each antibiotic, BAMPS-ML supports:
-
-- **Regression** models  
-  (MIC prediction; MICs are internally transformed to log₂ scale)
-
-- **Classification** models  
-  (S/I/R prediction via breakpoint mapping)
-
-Models are trained **per antibiotic**, reflecting the fact that resistance architecture,
-label availability, and uncertainty often differ substantially across drugs.
-
----
-
-## Reproducible outputs
-
-Each run produces a complete, auditable record, including:
-
-- per-antibiotic trained models (`*.pkl`)
-- per-antibiotic evaluation plots (`*.png`)
-- `training_summary.tsv` summarising performance and sample sizes
-- logs and software/environment snapshots
-
-Outputs are written to a self-contained run directory:
-
-outputs/runs/<run_id>/
-
-This directory contains everything required to reproduce or audit a given analysis.
-
----
-
-## Repository layout
-
-- `scripts/`  
-  Command-line entry points for feature construction, training, prediction, and plotting
-
-- `bamps_ml/`  
-  Core library modules
-
-- `data/`  
-  Example datasets (not distributed publicly unless explicitly stated)
-
-- `outputs/`  
-  Generated outputs, organised by run
-
----
-
-## Quick start
-
-### AMRFinder → MIC panel training
-
-This “golden path” builds AMRFinder-based features and trains **one model per antibiotic
-column** found in `data/mic_values.norm.csv` (after dropping isolates with missing labels
-for each antibiotic).
+Python 3.10+ is recommended.
 
 ```bash
-conda activate BAMPY
-scripts/run_golden_path.sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
 ```
 
-Outputs include:
-- `models/<antibiotic>_regression.pkl`
-- `plots/<antibiotic>_regression.png`
-- `models/training_summary.tsv`
-- `logs/*.log, versions.txt, run_meta.txt`
+For AMRFinderPlus feature extraction, install NCBI AMRFinderPlus separately and ensure `amrfinder` is available on `$PATH`.
 
-Documentation
-A detailed end-to-end workflow is provided in:
+## Minimal example
+
+```bash
+python scripts/train_model.py \
+  --feature-table examples/toy_example/features.tsv \
+  --mic-file examples/toy_example/phenotypes.tsv \
+  --task regression \
+  --classifier ridge \
+  --model-dir outputs/example/models \
+  --plot-dir outputs/example/plots \
+  --self-test
 ```
-docs/WORKFLOW.md
-```
-(data layout → feature extraction → training → evaluation → interpretation)
 
-Status
-This repository contains code and documentation used for the *A. baumannii* AMR prediction
-study (Pascoe & Mourkas et al., in preparation).
+The toy data are synthetic and exist only to test file formats and command execution.
 
-The codebase is actively being cleaned and documented. Optional feature views (gene
-content, unitigs/GWAS, mobile element context) are present but may still be under
-refinement.
+## Reproducibility
 
-*Notes*
-### Antibiotic panel behaviour
-Training is performed per antibiotic column after dropping isolates with missing
-labels. As a result, a single run produces multiple trained models alongside
-`training_summary.tsv`.
+For publication-grade analyses, retain the exact input feature matrix, phenotype table, command line, random seed, model metadata and software environment. Feature selection must be performed using training data only when evaluating held-out or external samples.
 
-### Label sparsity
-Some antibiotics have substantially fewer usable labels, which can reduce model stability
-and inflate uncertainty. Always report sample sizes per antibiotic, as captured in
-`training_summary.tsv`.
+## Citation
+
+If you use BAMPS, cite the archived release DOI once available. See `CITATION.cff`.
+
+## Licence
+
+GPL-3.0. See `LICENSE`.
+
+## Status
+
+This is a pre-1.0 research software release. Interfaces may change while the API and test coverage are consolidated.

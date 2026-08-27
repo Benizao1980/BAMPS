@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use BAMPS, please cite the software release and associated publication."
+title: "BAMPS: Bacterial AMR Modelling and Prediction Suite"
+type: software
+authors:
+  - family-names: Pascoe
+    given-names: Ben
+version: 0.1.0
+date-released: 2026-08-26
+repository-code: "https://github.com/Benizao1980/BAMPS-ML"
+license: GPL-3.0-only
